@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Urbanist:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Peliculas UTS</title>
+    <style>
+        .container{
+            max-width: 960px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="https://i.pinimg.com/originals/33/36/c9/3336c92d074fea0ee1fdc1bfcc063a29.png" alt="" width="35" height="35" class="d-inline-block align-text-top">
+            Registro peliculas UTS
+        </a>
+    </div>
+</nav>
+<br>
+<div class="container">
+    <div class="shadow-lg p-3 mb-5 bg-body rounded ">
+        <h3 class="texto">Datos de la pelicula</h3>
+        <h3 class="badge bg-secondary text-wrap fs-6 d-flex justify-content-center" align="center">Ingresa la nueva pelicula al directorio</h3>
+
+        <form action="/crear" method="POST">
+            <div class="row">
+            <div class="col sm">
+            <div class="col-sm ">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input id="nombre" name="nombre" type="text" class="form-control" required>
+            </div>
+            <div class="col-sm">
+                <label for="year" class="form-label">Año</label>
+                <input id="year" name="year" type="date" class="form-control" required>
+            </div>
+            <div class="col-sm">
+                <label for="genero" class="form-label">Genero</label>
+                <input id="genero" name="genero" type="text" class="form-control" required>
+            </div>
+            <div class="col-sm">
+                <label for="director" class="form-label">Director</label>
+                <input id="director" name="director" type="text" class="form-control" required>
+            </div>
+            <br>
+            </div>
+            <div class="col-sm text-center ">
+                <br><br><br><br>
+                <button type="submit" class="w-50 btn guardar btn-lg justify-content-center"><i class="bi bi-check-square"></i> Registrar pelicula </button>
+            </div>
+        </div>
+    </div>
+    <h1 class="texto">Lista de peliculas</h1>
+    </form>
+    <!-- Tabla peliculas  -->
+    <table id="tablaPeliculas" class="table mt-4">
+        <thead>
+        <tr>
+            <th style="display: none;">ID</th>
+            <th>Nombre</th>
+            <th>Año</th>
+            <th>Genero</th>
+            <th>Director</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% peliculas.forEach( (pelicula) => { %>
+            <tr>
+                <td style="display: none;"><%= pelicula._id %></td>
+                <td><%= pelicula.nombre %></td>
+                <td><%= pelicula.year %></td>
+                <td><%= pelicula.genero %></td>
+                <td><%= pelicula.director %></td>
+                <td>
+                    <a type="button" class="btnEditar btn btn-outline-primary bi bi-pen"></a>
+                    <a href="/borrar/<%= pelicula._id %>" class="btn btn-outline-danger bi bi-x-circle"></a>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal para Editar   -->
+<div id="modalPelicula" class="modal fade" tabindex="-1" aria-labelledby="modalPelicula" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Pelicula</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/editar" method="POST">
+                    <input name="id_editar" id="id_editar" type="text" hidden>
+                    <div class="mb-3">
+                        <label for="nombre_editar" class="col-form-label">Nombre:</label>
+                        <input id="nombre_editar" name="nombre_editar" type="text" class="form-control" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="year_editar" class="col-form-label">Año:</label>
+                        <input id="year_editar" name="year_editar" type="date" class="form-control" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="genero_editar" class="col-form-label">Genero:</label>
+                        <input id="genero_editar" name="genero_editar" type="text" class="form-control" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="director_editar" class="col-form-label">Director:</label>
+                        <input id="director_editar" name="director_editar" type="text" class="form-control" value="">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Actualizar pelicula</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="js/code.js"></script>
+</body>
+</html>

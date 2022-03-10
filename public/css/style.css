@@ -1,0 +1,23 @@
+body{
+    background-color: #f0f0f0;
+}
+
+.texto {
+    font-family: 'Urbanist', sans-serif;
+}
+
+.guardar:hover,.guardar:active{
+    color: #ececec;
+    background-color: #0d6dfb;
+    border-color: #134aff;
+}
+
+.guardar{
+    width: 100%;
+    padding: 15px;
+    color: #eeeeee;
+    background-color: #203239;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
